@@ -12,4 +12,4 @@ client.on('messageCreate', (message) => {
   if (message.content == `${PREFIX}command`) { /* ACTION */ }
 });
 
-client.login(TOKEN);
+client.login(TOKEN).catch(err => console.log('Start-Up Failed'));
