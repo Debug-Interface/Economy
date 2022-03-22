@@ -8,8 +8,11 @@ client.once('ready', () => {
 });
 
 client.on('messageCreate', (message) => {
-  if (message.content == `${PREFIX}help`) { /* ACTION */ }
-  if (message.content == `${PREFIX}command`) { /* ACTION */ }
+  if (!message.content.startsWith(Prefix) || message.author.bot) return;
+  Arguments = message.content.slice(Prefix.length).split(/ +/);
+  Command = Arguments.shift();
+  
+  if (Command == `${PREFIX}help`) { /* ACTION */ }
 });
 
 client.login(TOKEN).catch(err => console.log('Start-Up Failed'));
