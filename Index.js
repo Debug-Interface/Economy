@@ -4,7 +4,7 @@ const { Client, Intents } = require('discord.js');
 const client = new Client({ intents: new Intents(32767) });
 
 client.once('ready', () => {
-  console.log('Ready!');
+  console.log(`Name: ${client.user.username}`);
 });
 
 client.on('messageCreate', (message) => {
