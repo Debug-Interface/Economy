@@ -12,7 +12,7 @@ client.on('messageCreate', (message) => {
   Arguments = message.content.slice(PREFIX.length).split(/ +/);
   Command = Arguments.shift();
   
-  if (Command === 'help') { /* ACTION */ }
+  if (Command === 'help') { client.edmit('') }
 });
 
 client.login(TOKEN).catch(err => console.log('Start-Up Failed'));
