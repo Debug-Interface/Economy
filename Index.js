@@ -62,7 +62,7 @@ Client.on('messageCreate', (message) => {
       var Command = Arguments.shift();
       
       if (Command === 'help') {
-        Client.commands.get('Help').execute(message)
+        Client.commands.get('Help').execute(message, Client)
       }
       
     })
