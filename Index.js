@@ -11,6 +11,8 @@ var Commands = new AsciiTable3();
 
 Commands.setAlign(1, AlignmentEnum.CENTER);
 Commands.setAlign(2, AlignmentEnum.CENTER);
+Commands.setStyle('ascii-rounded');
+Commands.getTitleAlign() 
 
 Commands.setHeading('COMMANDS', 'STATUS');
 
@@ -44,7 +46,7 @@ client.on('messageCreate', (message) => {
   var Command = Arguments.shift();
   
   if (Command === 'help') {
-    client.commands.get('Help').execute(message, client);
+    client.commands.get('Help').execute(message);
   }
 
 });
