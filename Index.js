@@ -42,6 +42,7 @@ for (var file of Folder ) {
 Client.once('ready', () => {
   console.log(`Name: ${Client.user.username}`);
   console.log( Commands.toString() );
+  // console.log(`https://discord.com/oauth2/authorize?client_id=${Client.user.id}&permissions=8&scope=bot%20applications.commands`);
 });
 
 Client.on('guildCreate', (guild) => {
