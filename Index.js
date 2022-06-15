@@ -1,18 +1,33 @@
 const { TOKEN, PREFIX } = process.env;
 
-const { Client, Intents } = require('discord.js');
-const client = new Client({ intents: new Intents(32767) });
+Discord = require('discord.js');
+FileSync = require('fs');
+Client = new Discord.Client({ intents: new Intents(32767) });
 
-client.once('ready', () => {
-  console.log(`Name: ${client.user.username}`);
+Client.commands = new Discord.Collection();
+
+Folder = FileSync.readdirSync('./Commands/');
+Folder.filter(file => file.endsWith('.js'));
+
+for (file of Folder ) {
+  Command = require(`./Commands/${file}`);
+  Client.commands.set(Command.name, Command);
+}
+
+Client.once('ready', () => {
+  console.log(`Name: ${Client.user.username}`);
 });
 
-client.on('messageCreate', (message) => {
-  if (!message.content.startsWith(PREFIX) || message.author.bot) return;
-  Arguments = message.content.slice(PREFIX.length).split(/ +/);
-  Command = Arguments.shift();
+Client.on('messageCreate', (message) => {
+  if (message.content.indexOf(PREFIX) !== 0) return;
+
+  var Arguments = message.content.slice(PREFIX.length).split(/ +/);
+  var Command = Arguments.shift();
   
-  if (Command === 'help') { client.edmit('') }
+  if (Command === 'help') {
+    Client.commands.get('Help').execute(message);
+  }
+  
 });
 
-client.login(TOKEN).catch(err => console.log('Start-Up Failed'));
+Client.login(TOKEN);
