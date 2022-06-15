@@ -1,33 +1,33 @@
 const { TOKEN, PREFIX } = process.env;
 
-Discord = require('discord.js');
-FileSync = require('fs');
-Client = new Discord.Client({ intents: new Intents(32767) });
+const { Client, Intents, Collection } = require('discord.js');
+const { readdirSync } = require('fs');
+const client = new Client({ intents: new Intents(32767) });
 
-Client.commands = new Discord.Collection();
+client.commands = new Collection();
 
-Folder = FileSync.readdirSync('./Commands/');
+Folder = readdirSync('./Commands/');
 Folder.filter(file => file.endsWith('.js'));
 
 for (file of Folder ) {
   Command = require(`./Commands/${file}`);
-  Client.commands.set(Command.name, Command);
+  client.commands.set(Command.name, Command);
 }
 
-Client.once('ready', () => {
-  console.log(`Name: ${Client.user.username}`);
+client.once('ready', () => {
+  console.log(`Name: ${client.user.username}`);
 });
 
-Client.on('messageCreate', (message) => {
+client.on('messageCreate', (message) => {
   if (message.content.indexOf(PREFIX) !== 0) return;
 
   var Arguments = message.content.slice(PREFIX.length).split(/ +/);
   var Command = Arguments.shift();
   
   if (Command === 'help') {
-    Client.commands.get('Help').execute(message);
+    client.commands.get('Help').execute(message);
   }
   
 });
 
-Client.login(TOKEN);
+client.login(TOKEN);
